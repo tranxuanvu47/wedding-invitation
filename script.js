@@ -87,7 +87,7 @@ const translations = {
       "Hãy tham gia cùng chúng mình tại đây trong ngày đặc biệt này",
     addressLabel: "Địa Chỉ",
     scheduleLabel: "Lịch Trình",
-    ceremonyTime: "Lễ Vows: 17:00 AM\nTiệc: 18:00 AM",
+    ceremonyTime: "Lễ Vows: 17:00 PM\nTiệc: 18:00 PM",
     btnDirection: "Chỉ Đường",
     wishesTitle: "Lời Chúc",
     wishesSubtitle:
@@ -235,9 +235,12 @@ function initThiepCover() {
   // Lock scroll
   document.body.classList.add("cover-active");
 
-  // After 2 seconds, open the cover
+  // After delay, open the cover
   setTimeout(() => {
     cover.classList.add("open");
+
+    // Spawn falling roses & hearts
+    spawnCoverPetals();
 
     // After the opacity fade-out completes, hide completely and unlock scroll
     cover.addEventListener("transitionend", function handler(e) {
@@ -248,6 +251,37 @@ function initThiepCover() {
       }
     });
   }, 1200);
+}
+
+function spawnCoverPetals() {
+  const emojis = ['🌹', '💕', '🩷', '🌸', '💗', '🪻', '❤️', '🌷'];
+  const count = 40;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'cover-petal';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    // Random horizontal position
+    el.style.left = Math.random() * 100 + 'vw';
+    // Start above the viewport at random heights
+    el.style.top = -(Math.random() * 20 + 5) + '%';
+    // Random size
+    const size = Math.random() * 20 + 14;
+    el.style.fontSize = size + 'px';
+    // Random animation duration & delay
+    const duration = Math.random() * 2.5 + 2.5;
+    const delay = Math.random() * 1.5;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = delay + 's';
+
+    document.body.appendChild(el);
+
+    // Remove after animation ends
+    setTimeout(() => {
+      el.remove();
+    }, (duration + delay) * 1000 + 500);
+  }
 }
 
 function initFAB() {

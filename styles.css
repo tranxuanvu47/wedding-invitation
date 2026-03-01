@@ -17,9 +17,9 @@
 /* Container for the two halves — landscape ratio matching the image */
 .thiep-card-wrapper {
     position: relative;
-    width: 72vw;
-    height: calc(85vw * 553 / 788);
-    max-width: 90vw;
+    width: 70vw;
+    height: calc(70vw * 553 / 788);
+    max-width: 80vw;
     max-height: 85vh;
     z-index: 1;
     display: flex;
@@ -89,6 +89,29 @@ body.cover-active {
         width: 95vw;
         height: calc(95vw * 553 / 788);
         max-height: 70vh;
+    }
+}
+
+/* Falling petals & hearts on cover open */
+.cover-petal {
+    position: fixed;
+    z-index: 100000;
+    pointer-events: none;
+    opacity: 0;
+    animation: petalFall linear forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(110vh) rotate(720deg) scale(0.5);
     }
 }
 
